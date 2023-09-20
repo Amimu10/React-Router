@@ -1,20 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigation } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import About from "../About/About";
-import Contact from "../About/Contact/Contact";
-// import Posts from "../Posts/Posts";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 const Home = () => {
+  const navigation = useNavigation();
+ const location = useLocation();
+ console.log(location);
   return (
-    <div>
-      <h2>This is the Home component</h2>
-      <Header></Header>
-      <Outlet></Outlet>
-       <About></About>
-       {/* <Posts></Posts> */}
-       <Contact></Contact>
-      <Footer></Footer>
+    <div> 
+      <Header />
+      {
+        navigation.state === "loading"? <PropagateLoader className="text-center mt-10 text-5xl duration-3000" color="#36d7b7"></PropagateLoader>: <Outlet></Outlet> 
+      }
+      <Footer /> 
     </div>
   );
 };
